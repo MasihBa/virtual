@@ -1,19 +1,19 @@
 // signup.cpp
+#include "ui_signup.h"
 #include "signup.h"
 #include <QRegularExpression>
-//#include "ui_signup.h"
 
 SignUp::SignUp(QWidget *parent)
-    : QWidget(parent)
-    , ui1(new Ui::SignUp)
+    : QMainWindow(parent)
+    , ui(new Ui::SignUp)
 {
-    ui1->setupUi(this);
-    connect(ui1->signupPushButton, &QPushButton::clicked, this, &SignUp::onSignupClicked);
+    ui->setupUi(this);
+    connect(ui->signupPushButton, &QPushButton::clicked, this, &SignUp::onSignupClicked);
 }
 
 SignUp::~SignUp()
 {
-    delete ui1;
+    delete ui;
 }
 
 bool SignUp::checkValidFirstName()
@@ -48,12 +48,12 @@ bool SignUp::checkValidPhoneNumber()
 
 void SignUp::onSignupClicked()
 {
-    firstName = ui1->firstnameLineEdit->text();
-    lastName = ui1->lastnameLineEdit->text();
-    username = ui1->usernameLineEdit->text();
-    password = ui1->passwordLineEdit->text();
-    email = ui1->emailLineEdit->text();
-    phoneNumber = ui1->phonenumberLineEdit->text();
+    firstName = ui->firstnameLineEdit_2->text();
+    lastName = ui->lastnameLineEdit_2->text();
+    username = ui->usernameLineEdit_2->text();
+    password = ui->passwordLineEdit_2->text();
+    email = ui->emailLineEdit_2->text();
+    phoneNumber = ui->phonenumberLineEdit_2->text();
 
     QString error;
     if (!checkValidFirstName()) {
@@ -71,10 +71,8 @@ void SignUp::onSignupClicked()
     }
 
     if (!error.isEmpty()) {
-        ui1->labelErrorMessage->setStyleSheet("color: red;");
-        ui1->labelErrorMessage->setText(error);
+        QMessageBox::warning(this, "Signup Failed", error);  // پیام خطا
     } else {
-        ui1->labelErrorMessage->setStyleSheet("color: green;");
-        ui1->labelErrorMessage->setText("Signup successful!");
+        QMessageBox::information(this, "Signup Success", "Signup successful!");  // پیام موفقیت
     }
 }
