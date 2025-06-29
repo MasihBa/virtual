@@ -8,6 +8,7 @@
 #include "signup.h"
 #include "changeinfo.h"
 #include "passrecovery.h"
+#include "getuserinfo.h"
 #include <QMutex>
 class MyThread : public QThread
 {
@@ -31,6 +32,7 @@ private:
     signup signUp;
     ChangeInfo update;
     PassRecovery recovery;
+    getUserInfo getInfo;
     qintptr socketDescriptor;
 };
 
