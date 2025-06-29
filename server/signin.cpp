@@ -34,4 +34,8 @@ QString signin::check(const QString &username, const QString &password)
             return "0";
         }
     }
+    else
+    {
+        return "0";
+    }
 }
