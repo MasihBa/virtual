@@ -7,6 +7,7 @@
 #include "signin.h"
 #include "signup.h"
 #include "changeinfo.h"
+#include "passrecovery.h"
 #include <QMutex>
 class MyThread : public QThread
 {
@@ -29,6 +30,7 @@ private:
     signin signIn;
     signup signUp;
     ChangeInfo update;
+    PassRecovery recovery;
     qintptr socketDescriptor;
 };
 

@@ -42,7 +42,14 @@ void MyThread::readyRead()
         data = signIn.check(command[1],command[2]);
         socket->write(data.toUtf8());
     }
-    else if(command[0].toInt() == 4)
+    else if(command[0].toInt() == 3)
+    {
+        QMutexLocker locker(&lock);
+        QString data;
+        data = recovery.check(command[1],command[2]);
+        socket->write(data.toUtf8());
+    }
+    else if(command[0].toInt() == 5)
     {
         QMutexLocker locker(&lock);
         QString data;
