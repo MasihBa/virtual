@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->pushButton, &QPushButton::clicked,
+    connect(ui->stopButton, &QPushButton::clicked,
             this, &MainWindow::onConnectClicked);
 }
 

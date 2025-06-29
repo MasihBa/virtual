@@ -13,6 +13,7 @@ SOURCES += \
     cardWidget.cpp \
     changeinfo.cpp \
     findpassword.cpp \
+    gameUI.cpp \
     hsitory.cpp \
     ipgetter.cpp \
     main.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     cardWidget.h \
     changeinfo.h \
     findpassword.h \
+    gameUI.h \
     history.h \
     ipgetter.h \
     mainwindow.h\
@@ -41,6 +43,7 @@ HEADERS += \
 FORMS += \
     changeInfo.ui \
     findpassword.ui \
+    gameUI.ui \
     history.ui \
     mainwindow.ui \
     menu.ui \
@@ -54,4 +57,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    resources.qrc \
     resources.qrc
