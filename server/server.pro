@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    card.cpp \
     changeinfo.cpp \
     game.cpp \
     gamer.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     signup.cpp
 
 HEADERS += \
+    card.h \
     changeinfo.h \
     game.h \
     gamer.h \

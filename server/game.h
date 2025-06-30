@@ -5,6 +5,7 @@
 #include <QMap>
 #include "mythread.h"
 #include "gamer.h"
+#include "card.h"
 
 class Game : public QObject
 {
@@ -15,13 +16,28 @@ public:
     void addNewOnlineUser(qintptr id,MyThread* thread);
     int getGamerCount() const {return gamerCount;}
     void sendToGamer(MyThread* user,const QString& data);
+    void startGame();
+    void shuffle(QVector<Card>& _cards);
+    void gameManager();
+    void roudOver();
+    void makeNewCardStr();
+    void updateCardStr(QString& selectedCard);
 
 signals:
+    void gameOverSignal();
     void newGamerAdded();
+
 private:
     int gamerCount;
+    int round;
+    int turn;
+    int hand;
+    int handPart;
+    int removedCardsNum;
+    QString cardStr;
+    QVector<Card> cards;
     QVector<Gamer*> gamers;
-    QMap<qintptr,MyThread*> onlineUsers;
+    QMap<qintptr,MyThread*> _onlineUsers;
 
 public slots:
     void handleDataReceived(qintptr socketDescriptor, const QString &commandStr);

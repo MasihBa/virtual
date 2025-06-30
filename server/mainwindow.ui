@@ -46,6 +46,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnStart">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>start</string>
        </property>

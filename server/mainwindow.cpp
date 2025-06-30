@@ -15,6 +15,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnStart_clicked()
 {
-    server.startServer(ui->ledPort->text().toInt());
+    if(server.startServer(ui->ledPort->text().toInt())){
+        ui->btnStart->setEnabled(false);
+        ui->btnStart->setText("started");
+    }
 }
 

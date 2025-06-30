@@ -16,7 +16,6 @@ QString signin::check(const QString &username, const QString &password)
 
     QByteArray data = users.readAll();
     users.close();
-
     QJsonDocument doc = QJsonDocument::fromJson(data);
     QJsonObject usersList = doc.object();
 

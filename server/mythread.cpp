@@ -6,18 +6,13 @@ MyThread::MyThread(qintptr ID,QMutex* _lock,QObject *parent) :
     QThread(parent)
 {
     lock = _lock;
-    this->socketDescriptor = ID;
+    socketDescriptor = ID;
 }
 void MyThread::run()
 {
     qDebug() << " Thread started";
     socket = new QTcpSocket();
-    if(!socket->setSocketDescriptor(this->socketDescriptor))
-    {
-        emit error(socket->error());
-        return;
-    }
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()), Qt::DirectConnection);
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     qDebug() << socketDescriptor << " Client connected";
     exec();
@@ -26,6 +21,7 @@ void MyThread::run()
 void MyThread::readyRead()
 {
     QString commandStr = socket->readAll();
+    qDebug()<<commandStr;
     QStringList command = commandStr.split(";");
     if(command[0].toInt() == 1)
     {

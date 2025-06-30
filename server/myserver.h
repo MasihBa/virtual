@@ -13,15 +13,17 @@ class MyServer : public QTcpServer
 public:
     explicit MyServer(QObject *parent = nullptr);
     ~MyServer();
-    void startServer(int _port);
+    int startServer(int _port);
 signals:
 
 public slots:
-
+    void gameOver();
 protected:
     void incomingConnection(qintptr socketDescriptor);
+private:
     QMutex* lock;
     Game* gameController;
+
 
 };
 
