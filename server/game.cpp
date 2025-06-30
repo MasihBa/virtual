@@ -74,6 +74,18 @@ void Game::updateCardStr(QString &selectedCard)
     cardStr = command.join(";");
 }
 
+void Game::gameOver()
+{
+    for(int i=0;i<4;i++){
+        if(gamers[i]->numOfWins()==2){
+
+        }
+        else{
+
+        }
+    }
+}
+
 
 
 void Game::gameManager()
@@ -105,7 +117,7 @@ void Game::gameManager()
         //?????????
     }
     if(round == 4){
-        //????????
+        gameOver();
     }
 }
 

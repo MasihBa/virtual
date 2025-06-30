@@ -22,9 +22,9 @@ public:
     void roudOver();
     void makeNewCardStr();
     void updateCardStr(QString& selectedCard);
+    void gameOver();
 
 signals:
-    void gameOverSignal();
     void newGamerAdded();
 
 private:

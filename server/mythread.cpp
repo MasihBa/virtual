@@ -12,7 +12,12 @@ void MyThread::run()
 {
     qDebug() << " Thread started";
     socket = new QTcpSocket();
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    if(!socket->setSocketDescriptor(this->socketDescriptor))
+    {
+        emit error(socket->error());
+        return;
+    }
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()) , Qt::DirectConnection );
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     qDebug() << socketDescriptor << " Client connected";
     exec();
@@ -21,7 +26,6 @@ void MyThread::run()
 void MyThread::readyRead()
 {
     QString commandStr = socket->readAll();
-    qDebug()<<commandStr;
     QStringList command = commandStr.split(";");
     if(command[0].toInt() == 1)
     {

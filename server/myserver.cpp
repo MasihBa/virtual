@@ -8,7 +8,6 @@ MyServer::MyServer(QObject *parent) :
 {
     lock = new QMutex();
     gameController = new Game();
-    connect(gameController,SIGNAL(gameOverSignal()),this,SLOT(gameOver()));
 }
 int MyServer::startServer(int _port)
 {
@@ -24,11 +23,6 @@ int MyServer::startServer(int _port)
         qDebug() << "Listening to port : " << port << "...";
         return 1;
     }
-}
-
-void MyServer::gameOver()
-{
-
 }
 
 void MyServer::incomingConnection(qintptr socketDescriptor)

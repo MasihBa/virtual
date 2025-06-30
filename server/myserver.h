@@ -14,10 +14,6 @@ public:
     explicit MyServer(QObject *parent = nullptr);
     ~MyServer();
     int startServer(int _port);
-signals:
-
-public slots:
-    void gameOver();
 protected:
     void incomingConnection(qintptr socketDescriptor);
 private:
