@@ -14,6 +14,7 @@ SOURCES += \
     changeinfo.cpp \
     findpassword.cpp \
     gameUI.cpp \
+    gameUIController.cpp \
     hsitory.cpp \
     ipgetter.cpp \
     main.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     changeinfo.h \
     findpassword.h \
     gameUI.h \
+    gameUIController.h \
     history.h \
     ipgetter.h \
     mainwindow.h\

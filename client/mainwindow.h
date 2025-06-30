@@ -7,6 +7,9 @@
 #include "signup.h"
 #include "findpassword.h"
 #include "menu.h"
+#include "waiting.h"
+#include "gameui.h"
+#include "gameuicontroller.h"
 
 namespace Ui { class MainWindow; }
 

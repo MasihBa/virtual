@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->stopButton, &QPushButton::clicked,
+    connect(ui->pushButton, &QPushButton::clicked,
             this, &MainWindow::onConnectClicked);
 }
 
@@ -102,15 +102,12 @@ void MainWindow::showMenuPage(const QString &_username)
 
 void MainWindow::onLogOutRequested()
 {
-    qDebug() << "Handling logout - returning to signin";
-
+    qDebug() << "Handling logout-returning to signin";
     currentUsername.clear();
-
     if (menuPage) {
         delete menuPage;
         menuPage = nullptr;
     }
-
     showSignInPage();
 }
 

@@ -104,10 +104,10 @@ bool ChangeInfo::validateInputs()
         QMessageBox::warning(this, "Validation Error", "Phone must start with 98 and contain 12 digits.");
         return false;
     }
-    if (!checkValidPassword(pa)) {
-        QMessageBox::warning(this, "Validation Error", "Password must be at least 6 letters or digits.");
-        return false;
-    }
+    // if (!checkValidPassword(pa)) {
+    //     QMessageBox::warning(this, "Validation Error", "Password must be at least 6 letters or digits.");
+    //     return false;
+    // }// server can not send me password of the user...
     if (!checkValidUsername(us)) {
         QMessageBox::warning(this, "Validation Error", "Username is not valid.");
         return false;
@@ -141,7 +141,7 @@ void ChangeInfo::onCancelClicked()
 
 void ChangeInfo::onMessageReceived(const QString& msg)
 {
-    qDebug() << "📥 Server reply changeInfo:" << msg;
+    qDebug() << "Server reply changeInfo:" << msg;
 
     if (msg.contains(";") && msg.split(";").size() >= 6) {
         QStringList parts = msg.split(";");

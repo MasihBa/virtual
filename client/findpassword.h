@@ -1,29 +1,26 @@
-// // findpassword.h
 // #ifndef FINDPASSWORD_H
 // #define FINDPASSWORD_H
 
-// #include<QWidget>
-// #include<QMainWindow>
+// #include <QMainWindow>
 // #include "sockethandler.h"
 
-// namespace Ui {
-// class FindPassword;
-// }
+// namespace Ui { class FindPassword; }
 
 // class FindPassword : public QMainWindow
-
 // {
 //     Q_OBJECT
 // public:
-//     explicit FindPassword(SocketHandler* socketHandler, QMainWindow *parent = nullptr);
+//     explicit FindPassword(SocketHandler* socketHandler, QWidget *parent = nullptr);
 //     ~FindPassword() override;
 
 // signals:
+//     void recoveryCompleted();
 //     void backToSignIn();
 
 // private slots:
 //     void onPasswordRecoveryClicked();
 //     void onMessageReceived(const QString& msg);
+//     void onErrorOccurred(const QString& errorString);
 
 // private:
 //     bool checkValidUsername(const QString& username);
@@ -34,7 +31,7 @@
 // };
 
 // #endif // FINDPASSWORD_H
-// findpassword.h
+
 #ifndef FINDPASSWORD_H
 #define FINDPASSWORD_H
 
@@ -68,4 +65,3 @@ private:
 };
 
 #endif // FINDPASSWORD_H
-
