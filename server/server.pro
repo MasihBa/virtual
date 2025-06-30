@@ -10,6 +10,8 @@ CONFIG += c++17
 
 SOURCES += \
     changeinfo.cpp \
+    game.cpp \
+    gamer.cpp \
     getuserinfo.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,6 +23,8 @@ SOURCES += \
 
 HEADERS += \
     changeinfo.h \
+    game.h \
+    gamer.h \
     getuserinfo.h \
     mainwindow.h \
     myserver.h \

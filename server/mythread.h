@@ -10,20 +10,23 @@
 #include "passrecovery.h"
 #include "getuserinfo.h"
 #include <QMutex>
+
 class MyThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit MyThread(qintptr ID, QObject *parent = nullptr,QMutex* _lock);
+    explicit MyThread(qintptr ID,QMutex* _lock,QObject *parent = nullptr);
 
     void run();
 
 signals:
     void error(QTcpSocket::SocketError socketerror);
+    void dataReceived(qintptr socketDescriptor, const QString &commandStr);
 
 public slots:
     void readyRead();
     void disconnected();
+    void writeToSocket(const QByteArray &data);
 
 private:
     QMutex* lock;

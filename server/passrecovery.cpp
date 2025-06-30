@@ -4,7 +4,7 @@ PassRecovery::PassRecovery(QObject *parent)
     : QObject{parent}
 {}
 
-QString signin::check(const QString &username, const QString &phoneNumber)
+QString PassRecovery::check(const QString &username, const QString &phoneNumber)
 {
     QFile users("users.json");
     if(!users.exists())
