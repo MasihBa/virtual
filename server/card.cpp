@@ -1,5 +1,6 @@
 #include "card.h"
 #include <QStringList>
+#include <stdexcept>
 
 Card::Card(int unitIndex, int rankIndex)
 {
@@ -33,6 +34,39 @@ QString Card::toString() const
 {
     return unitToString(m_unit) + "-" + rankToString(m_rank);
 }
+Card::Unit Card::getUnit() const {
+    return m_unit;
+}
+
+Card::Rank Card::getRank() const {
+    return m_rank;
+}
+int Card::getUnitValue() const {
+    switch (m_unit) {
+    case Diamond: return 4;
+    case Gold:    return 3;
+    case Dollar:  return 2;
+    case Coin:    return 1;
+    }
+    return 0;
+}
+
+int Card::getRankValue() const {
+    return static_cast<int>(m_rank);
+}
+
+bool Card::operator<(const Card& other) const {
+    int thisRankValue = this->getRankValue();
+    int otherRankValue = other.getRankValue();
+
+    if (thisRankValue < otherRankValue) {
+        return true;
+    }
+    if (thisRankValue > otherRankValue) {
+        return false;
+    }
+    return this->getUnitValue() < other.getUnitValue();
+}
 
 Card::Unit Card::stringToUnit(const QString &str)
 {
@@ -54,10 +88,10 @@ Card::Rank Card::stringToRank(const QString &str)
     if(str == "8")        return Rank8;
     if(str == "9")        return Rank9;
     if(str == "10")       return Rank10;
-    if(str == "soldior")  return Soldior;
-    if(str == "queen")    return Queen;
-    if(str == "king")     return King;
-    if(str == "bitcoin")  return Bitcoin;
+    if(str == "Soldior")  return Soldior;
+    if(str == "Queen")    return Queen;
+    if(str == "King")     return King;
+    if(str == "Bitcoin")  return Bitcoin;
     return Rank2;
 }
 
@@ -84,10 +118,10 @@ QString Card::rankToString(Card::Rank rank)
     case Rank8:      return "8";
     case Rank9:      return "9";
     case Rank10:     return "10";
-    case Soldior:    return "soldior";
-    case Queen:      return "queen";
-    case King:       return "king";
-    case Bitcoin:    return "bitcoin";
+    case Soldior:    return "Soldior";
+    case Queen:      return "Queen";
+    case King:       return "King";
+    case Bitcoin:    return "Bitcoin";
     }
     return "";
 }

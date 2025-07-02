@@ -7,16 +7,6 @@ class Card
 {
 public:
 
-
-    Card(const QString &cardString);
-    Card(int unitIndex, int rankIndex);
-    Card(const Card &other);
-    Card &operator=(const Card &other);
-
-    QString toString() const;
-
-private:
-
     enum Unit {
         Diamond,
         Coin,
@@ -39,6 +29,21 @@ private:
         King,
         Bitcoin
     };
+
+
+    Card(const QString &cardString);
+    Card(int unitIndex, int rankIndex);
+    Card(const Card &other);
+    Card &operator=(const Card &other);
+    bool operator<(const Card& other) const;
+    Unit getUnit() const;
+    Rank getRank() const;
+    int getUnitValue() const;
+    int getRankValue() const;
+    QString toString() const;
+
+private:
+
 
     Unit m_unit;
     Rank m_rank;
