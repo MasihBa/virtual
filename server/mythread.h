@@ -21,7 +21,8 @@ public:
 
 signals:
     void error(QTcpSocket::SocketError socketerror);
-    void dataReceived(qintptr socketDescriptor, const QString &commandStr);
+    void dataReceived(qintptr socketDescriptor,QString commandStr);
+    void connected(qintptr socketDescriptor,MyThread *thread);
 
 public slots:
     void readyRead();

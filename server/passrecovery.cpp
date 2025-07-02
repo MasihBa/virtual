@@ -7,10 +7,6 @@ PassRecovery::PassRecovery(QObject *parent)
 QString PassRecovery::check(const QString &username, const QString &phoneNumber)
 {
     QFile users("users.json");
-    if(!users.exists())
-    {
-        return "0";
-    }
     if (!users.open(QIODevice::ReadOnly)) {
         return "-1";
     }

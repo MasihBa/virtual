@@ -2,6 +2,7 @@
 #include <QString>
 #include <QStringList>
 
+
 MyThread::MyThread(qintptr ID,QMutex* _lock,QObject *parent) :
     QThread(parent)
 {
@@ -19,6 +20,7 @@ void MyThread::run()
     }
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()) , Qt::DirectConnection );
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    emit connected(socketDescriptor,this);
     qDebug() << socketDescriptor << " Client connected";
     exec();
 }
@@ -27,13 +29,13 @@ void MyThread::readyRead()
 {
     QString commandStr = socket->readAll();
     QStringList command = commandStr.split(";");
+    qDebug()<<commandStr<<"\n";
     if(command[0].toInt() == 1)
     {
         QMutexLocker locker(lock);
         QString data;
         data = signUp.registeration(command[1],command[2],command[3],command[4],command[5],command[6]);
         socket->write(data.toUtf8());
-
     }
     else if(command[0].toInt() == 2)
     {
@@ -63,7 +65,7 @@ void MyThread::readyRead()
         data = update.updateInfo(command[1],command[2],command[3],command[4],command[5],command[6]);
         socket->write(data.toUtf8());
     }
-    else if(command[0].toInt() == 6)
+    else if(command[0].toInt() >= 6)
     {
         emit dataReceived(socketDescriptor,commandStr);
     }

@@ -12,7 +12,7 @@ QString ChangeInfo::updateInfo(const QString &name, const QString &lastName, con
 {
     QFile users("users.json");
     QJsonObject usersList,newInfo;
-    if (users.exists() && users.open(QIODevice::ReadOnly)) {
+    if (users.open(QIODevice::ReadOnly)) {
         QByteArray data = users.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(data);
         usersList = doc.object();

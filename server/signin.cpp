@@ -6,10 +6,6 @@ signin::signin()
 QString signin::check(const QString &username, const QString &password)
 {
     QFile users("users.json");
-    if(!users.exists())
-    {
-        return "0";
-    }
     if (!users.open(QIODevice::ReadOnly)) {
         return "-1";
     }

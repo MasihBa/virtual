@@ -29,13 +29,9 @@ void MyServer::incomingConnection(qintptr socketDescriptor)
 {
     qDebug() << socketDescriptor << " Connecting...";
     MyThread *thread = new MyThread(socketDescriptor,lock,this);
-    if (!thread) {
-        qDebug() << "Failed to allocate MyThread!";
-        return;
-    }
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     connect(thread,SIGNAL(dataReceived(qintptr,QString)),gameController,SLOT(handleDataReceived(qintptr,QString)));
-    gameController->addNewOnlineUser(socketDescriptor, thread);
+    connect(thread,&MyThread::connected,gameController,&Game::addNewOnlineUser);
     thread->start();
 }
 

@@ -13,7 +13,7 @@ QString signup::registeration(const QString &name, const QString &lastName, cons
 {
     QFile users("users.json");
     QJsonObject newUsers,newUser;
-    if (users.exists() && users.open(QIODevice::ReadOnly)) {
+    if (users.open(QIODevice::ReadOnly)) {
         QByteArray data = users.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(data);
         newUsers = doc.object();
