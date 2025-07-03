@@ -6,19 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>338</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(85, 170, 255);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>0</y>
+      <x>50</x>
+      <y>10</y>
       <width>233</width>
       <height>452</height>
      </rect>
@@ -28,13 +31,20 @@
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="firstNamelabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>first name</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="firstNamelineEdit"/>
+        <widget class="QLineEdit" name="firstNamelineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -55,13 +65,20 @@
       <layout class="QFormLayout" name="formLayout_2">
        <item row="0" column="0">
         <widget class="QLabel" name="lastNamelabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>last name</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lastNamelineEdit"/>
+        <widget class="QLineEdit" name="lastNamelineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -82,13 +99,20 @@
       <layout class="QFormLayout" name="formLayout_3">
        <item row="0" column="0">
         <widget class="QLabel" name="usernamelabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>username</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="usernamelineEdit"/>
+        <widget class="QLineEdit" name="usernamelineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -109,13 +133,20 @@
       <layout class="QFormLayout" name="formLayout_4">
        <item row="0" column="0">
         <widget class="QLabel" name="passwordlabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>passowrd </string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="passwordlineEdit"/>
+        <widget class="QLineEdit" name="passwordlineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -136,13 +167,20 @@
       <layout class="QFormLayout" name="formLayout_7">
        <item row="0" column="0">
         <widget class="QLabel" name="phonelabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>phone number</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="phonelineEdit"/>
+        <widget class="QLineEdit" name="phonelineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -163,13 +201,20 @@
       <layout class="QFormLayout" name="formLayout_6">
        <item row="0" column="0">
         <widget class="QLabel" name="emaillabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 85, 127);</string>
+         </property>
          <property name="text">
           <string>email</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="emaillineEdit"/>
+        <widget class="QLineEdit" name="emaillineEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 127);</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -178,11 +223,14 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>130</x>
       <y>500</y>
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 255, 127);</string>
     </property>
     <property name="text">
      <string>save</string>
@@ -191,28 +239,20 @@
    <widget class="QPushButton" name="cancelButton">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>230</x>
       <y>500</y>
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 255, 127);</string>
     </property>
     <property name="text">
      <string>cancel</string>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
