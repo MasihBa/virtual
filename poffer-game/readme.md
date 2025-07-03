@@ -33,7 +33,7 @@ This section provides a visual and descriptive guide on how to navigate the appl
 ### A. Connecting to the Server
 The first step for any user is to establish a connection with the game server.
 
-![Image of IP Connection Screen](./images/connect-screen.png)
+![Image of IP Connection Screen](./images/ipgetter.png)
 *(Screenshot: Connecting to the server)*
 
 As shown in the image above, the user must enter the server's IP address into the designated field and click the **"connect"** button to proceed to the login/registration page.
@@ -43,7 +43,7 @@ As shown in the image above, the user must enter the server's IP address into th
 #### **Registration Process**
 New users must create an account to play. By clicking the "signup" link on the login page, they are directed to the registration form.
 
-![Image of Signup Screen](./images/signup-screen.png)
+![Image of Signup Screen](./images/signuppage.png)
 *(Screenshot: User registration form)*
 
 The user needs to fill in all the required fields. After completing the form and clicking **"signup"**, the user is redirected back to the sign-in page to log in with their new credentials.
@@ -51,7 +51,7 @@ The user needs to fill in all the required fields. After completing the form and
 #### **Login Process**
 Registered users can access the game via the sign-in page.
 
-![Image of Login Screen](./images/login-screen.png)
+![Image of Login Screen](./images/signinpage.png)
 *(Screenshot: User sign-in page)*
 
 To log in, the user must enter their credentials:
@@ -63,7 +63,7 @@ The server validates this information against its database using a SHA-256 hash 
 ### C. Main Menu
 Upon a successful login, the user is greeted with the Main Menu, which serves as the central hub of the application.
 
-![Image of Main Menu Screen](./images/menu-screen.png)
+![Image of Main Menu Screen](./images/menupage.png)
 *(Screenshot: Main menu)*
 
 The menu offers the following options:
@@ -75,7 +75,7 @@ The menu offers the following options:
 ### D. The Main Game Screen
 Once a match starts, the user is taken to the main game interface where the actual gameplay occurs.
 
-![Image of the Main Game Screen](./images/game-screen.png)
+![Image of the Main Game Screen](./images/gamepage.png)
 *(Screenshot: The main gameplay interface)*
 
 The game screen is composed of several key components:
