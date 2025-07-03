@@ -71,12 +71,11 @@ public:
     explicit Waiting(SocketHandler* socketHandler, const QString &username, QWidget *parent = nullptr);
     ~Waiting();
     void setGameComponents(GameUI* gameUI, GameUIController* gameController);
-
 signals:
     void gameStarted(const QString &gameData);
     void waitingCancelled();
 
-private slots:
+public slots:
     void onMessageReceived(const QString &msg);
     void updateWaitingText();
     void onCancelClicked();

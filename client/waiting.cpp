@@ -108,6 +108,7 @@ Waiting::Waiting(SocketHandler* socketHandler, const QString &username, QWidget 
     setWindowTitle("Waiting for Players");
     setFixedSize(400, 300);
 
+    disconnect(w_socketHandler, &SocketHandler::messageReceived, nullptr, nullptr);
     connect(w_socketHandler, &SocketHandler::messageReceived, this, &Waiting::onMessageReceived);
     connect(ui->cancelButton, &QPushButton::clicked, this, &Waiting::onCancelClicked);
 
@@ -118,7 +119,7 @@ Waiting::Waiting(SocketHandler* socketHandler, const QString &username, QWidget 
     ui->playersCountLabel->setText("Players: 1/4");
 
     qDebug() << "Sending join game request for:" << w_username;
-    w_socketHandler->sendMessage(QString("6;%1").arg(w_username));
+    w_socketHandler->sendMessage(QString("6;%1").arg(w_username));///////////6;username
 }
 
 Waiting::~Waiting()
@@ -145,9 +146,12 @@ void Waiting::startGame(const QString &gameData)
             m_gameUI->show();
             qDebug() << "GameUI called.";
         }
+        disconnect(w_socketHandler, &SocketHandler::messageReceived, nullptr, nullptr);
+        connect(w_socketHandler, &SocketHandler::messageReceived, m_gameController, &GameUIController::onServerMessageReceived);
 
         m_gameController->startNewGame();
         qDebug() << "startNewGame called.";
+        w_socketHandler->sendMessage(QString("20;0"));
         this->hide();
 
     } else {
@@ -175,11 +179,11 @@ void Waiting::onMessageReceived(const QString &msg)
 
     if(parts[0] == "count") {
         if(parts.size() >= 2) {
-            ui->playersCountLabel->setText(QString("Players: %1/4").arg(parts[1])); // ✅ اصلاح فرمت
+            ui->playersCountLabel->setText(QString("Players: %1/4").arg(parts[1]));
         }
     }
     else if(parts[0] == "start" && parts[1] == "0") {
-        qDebug() << "Game starting!";
+        qDebug() << "Game starting.";
         animationTimer->stop();
         startGame(msg);
 
@@ -197,7 +201,7 @@ void Waiting::onCancelClicked()
     if(animationTimer) {
         animationTimer->stop();
     }
-    w_socketHandler->sendMessage(QString("7;%1").arg(w_username));
+    w_socketHandler->sendMessage(QString("7;%1").arg(w_username));//////// 7;username -> cancel
     emit waitingCancelled();
     this->close();
 }
