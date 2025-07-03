@@ -37,14 +37,6 @@ private:
     SocketHandler *m_socketHandler;
     QString c_username;
     QString firstName, lastName, email, phoneNumber, password;
-    // void loadCurrentUserInfo();
-    // bool validateInputs();
-    // bool checkValidFirstName(const QString& fn);
-    // bool checkValidLastName(const QString& ln);
-    // bool checkValidEmail(const QString& em);
-    // bool checkValidPhone(const QString& ph);
-    // bool checkValidUsername(const QString& us);
-    // bool checkValidPassword(const QString& pa);
     void requestUserInfo();
     void loadUserInfoToUI();
     bool validateInputs();

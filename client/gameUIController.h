@@ -1,125 +1,4 @@
-// #ifndef GAMEUICONTROLLER_H
-// #define GAMEUICONTROLLER_H
-
-// #include <QObject>
-// #include <QTimer>
-// #include <QJsonObject>
-// #include <QJsonDocument>
-// #include <QStringList>
-// #include <QRandomGenerator>
-// #include <QDebug>
-// #include <QDateTime>
-// #include <QMessageBox>
-// #include "gameui.h"
-// #include "sockethandler.h"
-
-// class GameUIController : public QObject
-// {
-//     Q_OBJECT
-
-// public:
-//     explicit GameUIController(GameUI* gameUI, SocketHandler* socketHandler, QObject *parent = nullptr);
-//     ~GameUIController();
-//     void startNewGame();
-//     void stopGame();
-//     void resumeGame();
-//     void exitGame();
-
-// signals:
-//     void gameFinished();
-//     void returnToMenu();
-//     void gameError(const QString& error);
-
-// private slots:
-//     void onCardSelected(int index, const QString& cardName);
-//     //void onSelectedCardClicked(int index);
-//     void onStopRequested();
-//     void onResumeRequested();
-//     void onExitRequested();
-//     void onServerMessageReceived(const QString& message);
-//     void onGameTimerTick();
-//     void onWarningTimerTick();
-//     void onStopTimerTick();
-
-//     //NEW
-//     void onCardSelectionTimeout();
-//     void onWarningTimeout();
-//     void onStopTimeout();
-
-// private:
-//     void setupConnections();
-//     void resetGameState();
-//     void handleServerMessage(const QJsonObject& message);
-//     void processCardSelection(int index, const QString& cardName);
-//     void performRandomCardSelection();
-//     void sendCardSelectionToServer(const QString& cardName);
-//     void startCardSelectionTimer();
-//     void startWarningTimer();
-//     void startStopTimer();
-//     void stopAllTimers();
-//     void handleStopRequest();
-//     void handleResumeRequest();
-//     void handleStopFromServer();
-//     void handleResumeFromServer();
-//     void handleCardTimeout();
-//     void handleStopTimeoutExpired();
-//     void checkRandomSelectionLimit();
-//     void checkStopUsageLimit();
-//     void updateGameState(const QString& state);
-//     void handleGameEnd(const QString& reason);
-//     void returnAllPlayersToMenu(const QString& reason);
-
-//     //NEW
-//     void sendToServer(const QString& action, const QJsonObject& data);
-//     void sendToServer(const QString& action);
-
-//     void sendStopRequest();
-//     void sendResumeRequest();
-//     void sendRandomSelectionNotification();
-//     void sendStopTimeoutNotification();
-//     void sendExitRequest();
-//     void updateDisplayedCards(const QStringList& requestedCards, const QStringList& selectedCards);
-
-
-// // private:
-//     GameUI* m_gameUI;
-//     SocketHandler* m_socketHandler;
-
-//     QTimer* m_gameTimer;
-//     QTimer* m_warningTimer;
-//     QTimer* m_stopTimer;
-
-//     QStringList m_currentRequestedCards;
-//     QStringList m_currentSelectedCards;
-//     QString m_currentPlayer;
-//     QString m_gameState;
-
-//     int m_cardSelectionTime;
-//     int m_warningTimeLeft;
-//     int m_stopTimeLeft;
-//     int m_remainingCardTime;
-//     int m_remainingWarningTime;
-//     int m_remainingStopTime;
-//     int m_randomSelectCount;
-//     int m_stopCount;
-//     int m_stopTime;
-
-//     bool m_isGameActive;
-//     bool m_isPuased;
-//     bool m_isMyTurn;
-//     bool m_waitingForCards;
-//     bool m_inWarningMode;
-//     int m_warningTime;
-//     QString m_playerId;
-
-//     static const int MAX_RANDOM_SELECTIONS = 2;
-//     static const int MAX_STOP_USAGE = 2;
-//     static const int CARD_SELECTION_TIME = 20;
-//     static const int WARNING_TIME = 10;
-//     static const int STOP_TIME = 30;
-// };
-
-// #endif // GAMEUICONTROLLER_H
+// GAMEUICONTROLLER_H
 #ifndef GAMEUICONTROLLER_H
 #define GAMEUICONTROLLER_H
 
@@ -140,7 +19,7 @@ class GameUIController : public QObject
     Q_OBJECT
 
 public:
-    explicit GameUIController(GameUI* gameUI, SocketHandler* socketHandler, const QString& username, QObject *parent = nullptr);
+    explicit GameUIController(GameUI* gameUI, SocketHandler* socketHandler, const QString username, QObject *parent = nullptr);
     ~GameUIController();
 
     void startNewGame();
@@ -253,7 +132,17 @@ private:
     static const int MAX_RANDOM_SELECTIONS = 2;// at most 2 times for random choice
     static const int MAX_STOP_USAGE = 2;// at most 2 times for  stop
 
-    // the new int
+
+    // new functions
+    void handleServerPause();
+    void handleServerContinue();
+    void saveCurrentTimerState();
+    void restoreTimerState();
+
+    QString m_savedTimerType;     // "card", "warning", "stop", "none"
+    int m_savedRemainingTime;
+    bool m_isServerPaused;
+
 };
 
 #endif // GAMEUICONTROLLER_H

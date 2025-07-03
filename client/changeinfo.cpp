@@ -81,6 +81,43 @@ bool ChangeInfo::checkValidPhone(const QString& ph) {
 }
 
 
+// bool ChangeInfo::validateInputs()
+// {
+//     QString fn = ui->firstNamelineEdit->text().trimmed();
+//     QString ln = ui->lastNamelineEdit->text().trimmed();
+//     QString em = ui->emaillineEdit->text().trimmed();
+//     QString ph = ui->phonelineEdit->text().trimmed();
+//     QString pa = ui->passwordlineEdit->text().trimmed();
+//     QString us = ui->usernamelineEdit->text().trimmed();
+
+//     if (!checkValidFirstName(fn)) {
+//         QMessageBox::warning(this, "Validation Error", "First name must contain only letters.");
+//         return false;
+//     }
+//     if (!checkValidLastName(ln)) {
+//         QMessageBox::warning(this, "Validation Error", "Last name must contain only letters.");
+//         return false;
+//     }
+//     if (!checkValidEmail(em)) {
+//         QMessageBox::warning(this, "Validation Error", "Invalid email format.");
+//         return false;
+//     }
+//     if (!checkValidPhone(ph)) {
+//         QMessageBox::warning(this, "Validation Error", "Phone must start with 98 and contain 12 digits.");
+//         return false;
+//     }
+//     // if (!checkValidPassword(pa)) {
+//     //     QMessageBox::warning(this, "Validation Error", "Password must be at least 6 letters or digits.");
+//     //     return false;
+//     // }// server can not send me password of the user...
+//     if (!checkValidUsername(us)) {
+//         QMessageBox::warning(this, "Validation Error", "Username is not valid.");
+//         return false;
+//     }
+
+//     return true;
+// }
+
 bool ChangeInfo::validateInputs()
 {
     QString fn = ui->firstNamelineEdit->text().trimmed();
@@ -106,17 +143,20 @@ bool ChangeInfo::validateInputs()
         QMessageBox::warning(this, "Validation Error", "Phone must start with 98 and contain 12 digits.");
         return false;
     }
-    // if (!checkValidPassword(pa)) {
-    //     QMessageBox::warning(this, "Validation Error", "Password must be at least 6 letters or digits.");
-    //     return false;
-    // }// server can not send me password of the user...
     if (!checkValidUsername(us)) {
         QMessageBox::warning(this, "Validation Error", "Username is not valid.");
         return false;
     }
 
+    // if the user do not enter the password the program do not change it
+    if (!pa.isEmpty() && !checkValidPassword(pa)) {
+        QMessageBox::warning(this, "Validation Error", "Password must be at least 6 letters or digits.");
+        return false;
+    }
+
     return true;
 }
+
 
 void ChangeInfo::onSaveClicked()
 {
@@ -130,7 +170,11 @@ void ChangeInfo::onSaveClicked()
     QString us = ui->usernamelineEdit->text().trimmed();
     QString pa = ui->passwordlineEdit->text().trimmed();
 
-    QString msg = QString("5;%1;%2;%3;%4;%5;%6").arg(fn, ln, ph, em, us, pa);
+    if(pa.isEmpty()){
+        pa = password;
+    }
+
+    QString msg = QString("5;%1;%2;%3;%4;%5;%6;%7").arg(c_username, fn, ln, ph, em, us, pa);
     qDebug() << "Sending changeInfo:" << msg;
     m_socketHandler->sendMessage(msg);
 }
@@ -141,36 +185,75 @@ void ChangeInfo::onCancelClicked()
     this->close();
 }
 
+// void ChangeInfo::onMessageReceived(const QString& msg)
+// {
+//     qDebug() << "Server reply changeInfo:" << msg;
+
+//     if (msg.contains(";") && msg.split(";").size() >= 6) {
+//         QStringList parts = msg.split(";");
+//         if (parts.size() >= 6) {
+//             firstName = parts[0];
+//             lastName = parts[1];
+//             email = parts[2];
+//             phoneNumber = parts[3];
+//             // parts[4] = username
+//             password = parts[5];
+//             loadUserInfoToUI();
+//             return;
+//         }
+//     }
+
+//     if (msg.trimmed() == "1") {
+//         QMessageBox::information(this, "Success", "Information updated successfully!");
+//         emit infoChanged();
+//         this->close();
+//     }
+//     else if (msg.trimmed() == "0") {
+//         QMessageBox::warning(this, "Failed", "Update failed. Please try again.");
+//     }
+//     else {
+//         QMessageBox::warning(this, "Error", "Server error: " + msg);
+//     }
+// }
+
 void ChangeInfo::onMessageReceived(const QString& msg)
 {
     qDebug() << "Server reply changeInfo:" << msg;
 
-    if (msg.contains(";") && msg.split(";").size() >= 6) {
+    if (msg.contains(";")) {
         QStringList parts = msg.split(";");
+
         if (parts.size() >= 6) {
             firstName = parts[0];
             lastName = parts[1];
             email = parts[2];
             phoneNumber = parts[3];
-            // parts[4] = username
+            // password = part[4]; // if the user do not enter nothing the program do not change the password
             password = parts[5];
+
+            qDebug() << "User info received - FirstName:" << firstName
+                     << "LastName:" << lastName << "Email:" << email;
+
             loadUserInfoToUI();
             return;
         }
     }
 
-    if (msg.trimmed() == "1") {
+    QString trimmedMsg = msg.trimmed();
+    if (trimmedMsg == "1") {
         QMessageBox::information(this, "Success", "Information updated successfully!");
         emit infoChanged();
         this->close();
     }
-    else if (msg.trimmed() == "0") {
+    else if (trimmedMsg == "0") {
         QMessageBox::warning(this, "Failed", "Update failed. Please try again.");
     }
-    else {
-        QMessageBox::warning(this, "Error", "Server error: " + msg);
-    }
+    // else {
+    //     qDebug() << "Unknown server response:" << msg;
+    //     QMessageBox::warning(this, "Error", "Unexpected server response: " + msg);
+    // }
 }
+
 
 // void ChangeInfo::onMessageReceived(const QString& msg)
 // {

@@ -1,6 +1,6 @@
 #include "gameUIController.h"
 
-GameUIController::GameUIController(GameUI* gameUI, SocketHandler* socketHandler, const QString& username, QObject *parent)
+GameUIController::GameUIController(GameUI* gameUI, SocketHandler* socketHandler, const QString username, QObject *parent)
     : QObject(parent)
     , m_gameUI(gameUI)
     , m_socketHandler(socketHandler)
@@ -19,6 +19,10 @@ GameUIController::GameUIController(GameUI* gameUI, SocketHandler* socketHandler,
     //, m_isMyTurn(false)
     , m_inWarningMode(false)
     , m_stopButtonDisabled(false)
+    ,m_playerUsername(username)
+    ,m_savedTimerType("none")
+    , m_savedRemainingTime(0)
+    , m_isServerPaused(false)
 {
     setupConnections();
     resetGameState();
@@ -82,6 +86,11 @@ void GameUIController::resetGameState()
     //m_isMyTurn = false;
     m_inWarningMode = false;
     m_stopButtonDisabled = false;
+
+    // the stop variables
+    m_isServerPaused = false;
+    m_savedTimerType = "none";
+    m_savedRemainingTime = 0;
 
     // Reset UI
     m_gameUI->resetGameUI();
@@ -151,6 +160,17 @@ void GameUIController::onCardSelected(int index, const QString cardName)
 
     if (index < 0 || index >= m_currentRequestedCards.size()) {
         qWarning() << "Invalid card index:" << index << "/ Available:" << m_currentRequestedCards.size();
+        return;
+    }
+    // the if to check the pause state
+    if (m_isServerPaused) {
+        qDebug() << "Card selection ignored - Server has paused the game";
+        return;
+    }
+
+    // the if to check the pause state
+    if (!m_isGameActive || m_isGamePaused) {
+        qDebug() << "Card selection ignored - Game not active or paused";
         return;
     }
 
@@ -259,24 +279,6 @@ void GameUIController::onStopTimeout()
 
 // ==================== CARD SELECTION LOGIC ====================
 
-// void GameUIController::processCardSelection(int index, const QString& cardName)
-// {
-//     if (index < 0 || index >= m_currentRequestedCards.size()) {
-//         qWarning() << " Invalid card index:" << index;
-//         return;
-//     }
-
-//     qDebug() << "Processing card selection:" << cardName;
-//     stopAllTimers();
-//     m_inWarningMode = false;
-//     m_isMyTurn = false;
-//     // UI Updates
-//     m_gameUI->markCardAsSelected(index);
-//     m_gameUI->enableGameControls(false);
-//     m_gameUI->updateGameStatus("Card selected! Waiting for other players...");
-//     // Send to server
-//     sendCardSelectionToServer(cardName);
-// }
 void GameUIController::processCardSelection(int index, const QString cardName)
 {
     if (index < 0 || index >= m_currentRequestedCards.size()) {
@@ -434,15 +436,6 @@ void GameUIController::handleGameFinish()
 
 // ==================== NETWORK COMMUNICATION ====================
 
-// void GameUIController::sendToServer(const QString& message)
-// {
-//     if (m_socketHandler) {
-//         m_socketHandler->sendMessage(message);
-//         qDebug() << "Sent to server:" << message;
-//     } else {
-//         qWarning() << "SocketHandler is null!";
-//     }
-// }
 
 void GameUIController::sendToServer(const QString message)
 {
@@ -511,149 +504,16 @@ void GameUIController::updateGameState(const QString state)
 
 // ==================== SERVER MESSAGE HANDLER ====================
 
-// void GameUIController::onServerMessageReceived(const QString& message)
-// {
-//     qDebug() << "Received from server:" << message;
-
-//     handleServerMessage(message);
-// }
-
-// void GameUIController::handleServerMessage(const QString& message)
-// {
-//     QStringList parts = message.split(";");
-
-//     if (parts.isEmpty()) {
-//         qWarning() << "Empty server message";
-//         return;
-//     }
-
-//     QString command = parts[0];
-
-//     if (command == "your_turn") {
-//         m_isMyTurn = true;
-//         m_gameUI->updateGameStatus("Your turn! Choose a card.");
-//         m_gameUI->enableGameControls(true);
-//         startCardSelectionTimer();
-
-//     } else if (command == "game_finish" || command == "gamefinish") {
-//         handleGameFinish();
-//     } else if (command == "cards_update" && parts.size() >= 3) {
-//         QStringList requestedCards = parts[1].split(",");
-//         QStringList selectedCards = parts[2].split(",");
-
-//         m_currentRequestedCards = requestedCards;
-//         m_currentSelectedCards = selectedCards;
-
-//         m_gameUI->updateRequestedCards(requestedCards);
-//         m_gameUI->updateSelectedCards(selectedCards);
-
-//     } else if (command == "stop_received") {
-//         qDebug() << "Server confirmed stop request";
-//     } else if (command == "resume_received") {
-//         qDebug() << "Server confirmed resume request";
-
-//     } else {
-//         qDebug() << "Unknown server command:" << command;
-//     }
-// }
-
 void GameUIController::onServerMessageReceived(const QString message)
 {
     qDebug() << "Received server message:" << message;
     handleServerMessage(message);
 }
 
-// void GameUIController::handleServerMessage(const QString& message)
-// {
-//     QStringList parts = message.split(";");
-
-//     if (parts.isEmpty()) return;
-
-//     QString command = parts[0];
-
-//     if (command == "cards_data" && parts.size() >= 2) {
-
-//         // form: "cards_data;card1,card2,card3,card4,card5,card6,card7"
-//         QStringList cardNames = parts[1].split(";");
-
-//         qDebug() << "Received cards from server:" << cardNames;
-//         m_currentRequestedCards = cardNames;
-//         m_gameUI->updateRequestedCards(cardNames);
-//         if (m_isMyTurn) {
-//             startCardSelectionTimer();
-//         }
-
-//     } else if (command == "your_turn") {
-//         m_isMyTurn = true;
-//         m_gameUI->updateGameStatus("Your turn! Choose a card.");
-//         m_gameUI->enableGameControls(true);
-//             if (!m_currentRequestedCards.isEmpty()) {
-//             startCardSelectionTimer();
-//         }
-
-//     } else if (command == "game_finish" || command == "gamefinish") {
-//         handleGameFinish();
-
-//     } else if (command == "stop_received") {
-//         qDebug() << "Server confirmed stop request";
-
-//     } else if (command == "resume_received") {
-//         qDebug() << "Server confirmed resume request";
-//     }
-// }
-
-// void GameUIController::handleServerMessage(const QString& message)
-// {
-//     QStringList parts = message.split(";");
-
-//     // if (parts.isEmpty()) {
-//     //     qWarning() << "Empty server message";
-//     //     return;
-//     // }
-
-//     QString command = parts[0];
-//     qDebug() << "Processing command:" << command;
-
-//     if (command == "cards_data" && parts.size() >= 8) {
-
-//         QStringList cardNames;
-//         for (int i = 1; i < parts.size(); i++) {
-//             if (!parts[i].isEmpty()) {
-//                 cardNames.append(parts[i]);
-//             }
-//         }
-
-//         qDebug() << "Received cards from server:" << cardNames;
-//         m_currentRequestedCards = cardNames;
-//         m_gameUI->updateRequestedCards(cardNames);
-//         //m_isMyTurn = true;
-//         m_gameUI->updateGameStatus("Your turn! Choose a card.");
-//         m_gameUI->enableGameControls(true);
-//         startCardSelectionTimer();
-
-//     } else if (command == "game_finish" || command == "gamefinish") {
-//         handleGameFinish();
-
-//     } else if (command == "stop_received") {
-//         qDebug() << "Server confirmed stop request";
-
-//     } else if (command == "resume_received") {
-//         qDebug() << "Server confirmed resume request";
-
-//     } else {
-//         qDebug() << "Unknown server command:" << command;
-//     }
-// }
-
 
 void GameUIController::handleServerMessage(const QString message)
 {
     QStringList parts = message.split(";");
-
-    // if (parts.isEmpty()) {
-    //     qWarning() << "Empty server message";
-    //     return;
-    // }
 
     QString command = parts[0];
     qDebug() << "Processing command:" << command;
@@ -683,6 +543,29 @@ void GameUIController::handleServerMessage(const QString message)
         }
 
     } else if (command == "game_finish" || command == "gamefinish") {
+        // game_finish;username1;number;username2;number;username3;number;username4;number;winner
+
+        if (parts.size() >= 10) {
+            for (int i = 1; i < 9; i += 2) {
+                if (i + 1 < parts.size()) {
+                    QString username = parts[i];
+                    QString numberStr = parts[i + 1];
+
+                    if (username == m_playerUsername) {
+                        int number = numberStr.toInt();
+
+                        if (number == 1) {
+                            QMessageBox::information(m_gameUI, "Game Result", "Winner!");
+                        } else if (number == -1) {
+                            QMessageBox::information(m_gameUI, "Game Result", "Loser!");
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
         handleGameFinish();
 
     } else if (command == "stop_received") {
@@ -691,11 +574,39 @@ void GameUIController::handleServerMessage(const QString message)
     } else if (command == "resume_received") {
         qDebug() << "Server confirmed resume request";
 
-    }else if(command == "round_over"){
+    }else if(command == "round_over"){// round_over;username1;pattern;username2;pattern;username3;pattern;username4;pattern;winner // I should show this in the in the infolabel
+        // sendToServer(QString("18;0"));
+        // m_currentSelectedCards.clear();
+        // m_gameUI->updateSelectedCards(QStringList());
+        sendToServer(QString("18;0"));
         m_currentSelectedCards.clear();
         m_gameUI->updateSelectedCards(QStringList());
-    }
+        if (parts.size() >= 10) {
+            QString roundInfo = "Round Results:";
 
+            for (int i = 1; i < 9; i += 2) {
+                if (i + 1 < parts.size()) {
+                    QString username = parts[i];
+                    QString pattern = parts[i + 1];
+                    roundInfo += QString("%1: %2").arg(username, pattern);
+                }
+            }
+
+            if (parts.size() >= 10) {
+                QString winner = parts[9];
+                roundInfo += QString("Winner: %1").arg(winner);
+            }
+
+            m_gameUI->updateGameStatus(roundInfo);
+
+            qDebug() << "Round over info displayed:" << roundInfo;
+        }
+    }else if (command == "puase" || command == "stop") {
+        handleServerPause();
+
+    } else if (command == "continue" || command == "resume") {
+        handleServerContinue();
+    }
     else {
         qDebug() << "Unknown server command:" << command;
     }
@@ -722,6 +633,79 @@ void GameUIController::sendChatMessageToServer(const QString message)
     if(m_socketHandler) {
         m_socketHandler->sendMessage(serverMessage);
         qDebug() << "Chat message sent to server:" << serverMessage;
+    }
+}
+
+// ==================== SERVER PAUSE HANDLE ====================
+
+void GameUIController::saveCurrentTimerState()
+{
+    m_savedTimerType = "none";
+    m_savedRemainingTime = 0;
+
+    if (m_cardSelectionTimer->isActive()) {
+        m_savedTimerType = "card";
+        m_savedRemainingTime = m_remainingCardTime;
+    } else if (m_warningTimer->isActive()) {
+        m_savedTimerType = "warning";
+        m_savedRemainingTime = m_remainingWarningTime;
+    } else if (m_stopTimer->isActive()) {
+        m_savedTimerType = "stop";
+        m_savedRemainingTime = m_remainingStopTime;
+    }
+
+    qDebug() << "Timer state saved:" << m_savedTimerType << "Time:" << m_savedRemainingTime;
+}
+
+
+
+void GameUIController::handleServerPause()
+{
+    qDebug() << "Server PAUSE received - Disabling all controls";
+
+    saveCurrentTimerState();
+
+    stopAllTimers();
+
+    m_isServerPaused = true;
+
+    m_gameUI->enableGameControls(false);
+
+    m_gameUI->updateGameStatus("Game paused by server...");
+}
+
+void GameUIController::handleServerContinue()
+{
+    qDebug() << "Server CONTINUE received - Enabling controls";
+    m_isServerPaused = false;
+    m_gameUI->enableGameControls(true);
+    restoreTimerState();
+    m_gameUI->updateGameStatus("Game resumed!");
+    m_savedTimerType = "none";
+    m_savedRemainingTime = 0;
+}
+
+void GameUIController::restoreTimerState()
+{
+    if (m_savedTimerType == "card" && m_savedRemainingTime > 0) {
+        m_remainingCardTime = m_savedRemainingTime;
+        m_gameUI->setTimerDisplay(m_remainingCardTime);
+        m_cardSelectionTimer->start(1000);
+        qDebug() << "Card timer restored:" << m_remainingCardTime << "seconds";
+
+    } else if (m_savedTimerType == "warning" && m_savedRemainingTime > 0) {
+        m_remainingWarningTime = m_savedRemainingTime;
+        m_gameUI->setTimerDisplay(m_remainingWarningTime);
+        m_warningTimer->start(1000);
+        m_inWarningMode = true;
+        qDebug() << "Warning timer restored:" << m_remainingWarningTime << "seconds";
+
+    } else if (m_savedTimerType == "stop" && m_savedRemainingTime > 0) {
+        m_remainingStopTime = m_savedRemainingTime;
+        QString buttonText = QString("Resume (%1s)").arg(m_remainingStopTime);
+        m_gameUI->updateStopButtonAppearance(buttonText, true);
+        m_stopTimer->start(1000);
+        qDebug() << "Stop timer restored:" << m_remainingStopTime << "seconds";
     }
 }
 

@@ -1,44 +1,4 @@
-// #ifndef MENU_H
-// #define MENU_H
-
-// #include <QPushButton>
-// #include <QWidget>
-// #include "signup.h"
-// #include <history.h>
-// #include<changeInfo.h>
-// // _ startGame _ ((logOut)??)
-
-
-
-// namespace Ui { class Menu; }
-
-
-// class Menu : public QWidget
-// {
-//     Q_OBJECT
-
-// public:
-//     explicit Menu(SocketHandler* socketHandler, QWidget *parent = nullptr);
-//     ~Menu();
-
-// private slots:
-//     void handleStartGame();
-//     void handleHistory();
-//     void handleChangeInfo();
-//     void handleLogOut();
-
-// private:
-//     Ui::Menu *ui;
-//     SignUp *signUpPage;
-//     SocketHandler* m_socketHandler;
-//     // History *historyPage;
-//     // StartGame *startGamePage;
-//     // ChangeUserData *changeUserDataPage;
-// };
-
-// #endif // MENU_H
-
-
+// MENU_H
 #ifndef MENU_H
 #define MENU_H
 

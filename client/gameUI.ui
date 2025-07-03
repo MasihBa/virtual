@@ -289,6 +289,19 @@ alternate-background-color: rgb(255, 255, 255);</string>
      <enum>QFrame::Shadow::Raised</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="infolabel">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>610</y>
+      <width>271</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
