@@ -29,6 +29,9 @@ private slots:
     void showFindPasswordPage();
     void showMenuPage(const QString& _ysername);
     void onLogOutRequested();
+    void onGameStartRequested();
+    void onReturnToMenuFromGame();
+    void onGameError(const QString& error);
 
     //void on_pushButton_clicked();
 
@@ -40,6 +43,8 @@ private:
     SignUp *signUpPage = nullptr;
     FindPassword *findPasswordPage = nullptr;
     Menu *menuPage = nullptr;
+    GameUI* gameUI = nullptr;
+    GameUIController* gameUIController = nullptr;
 };
 
 #endif // MAINWINDOW_H
