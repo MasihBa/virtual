@@ -111,6 +111,15 @@
 #include <QStringList>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QScrollArea>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QFrame>
+#include <QGroupBox>
+#include <QScrollBar>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameUI; }
@@ -124,7 +133,7 @@ public:
     GameUI(QWidget *parent = nullptr);
     ~GameUI();
 
-    // ✅ 🎯 PUBLI UI METHODS (Controller Interface):
+    //PUBLI UI METHODS (Controller Interface):
     void updateRequestedCards(const QStringList& cardNames);
     void updateSelectedCards(const QStringList& cardNames);
     void setTimerDisplay(int seconds);
@@ -132,6 +141,8 @@ public:
     void resetGameUI();
     void markCardAsSelected(int index);
     void updateStopButtonAppearance(const QString& text, bool enabled);
+    void updateGameStatus(const QString& status);
+    void displayChatMessage(const QString& username, const QString& message);
 
 signals:
     void cardSelected(int index, const QString& cardName);
@@ -142,6 +153,8 @@ signals:
     void returnToMenu();
 
     void cardRequested(const QString& cardName);
+    // the new signal for chat
+    void chatMessageSent(const QString& message);
 
 private slots:
     void onRequestedCard1Clicked();
@@ -178,12 +191,24 @@ private:
     void clearRequestedCards();
     void clearSelectedCards();
 
-private:
+//private:
     Ui::GameUI *ui;
     QStringList m_currentRequestedCards;
     QStringList m_currentSelectedCards;
     bool m_gameControlsEnabled;
     QLabel* statusLabel;
+
+    // the new attribute for chat
+    QTextEdit* m_chatDisplay;
+    QLineEdit* m_chatInput;
+    QPushButton* m_sendButton;
+    QFrame* m_stickerPanel;
+    QScrollArea* m_chatScrollArea;
+    QStringList m_availableStickers;
+    void setupChatUI();
+    void setupStickerPanel();
+    void addStickerToMessage(const QString& sticker);
+    void sendChatMessage();
 };
 
 #endif // GAMEUI_H
