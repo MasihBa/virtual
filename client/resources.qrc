@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/gametable"/>
-    <qresource prefix="/cards">
+    <qresource prefix="/gamepage">
+        <file>table/Game-Ground-Photo.JPG</file>
+    </qresource>
+    <qresource prefix="/card">
         <file>cards/Coin-2.JPG</file>
         <file>cards/Coin-3.JPG</file>
         <file>cards/Coin-4.JPG</file>
@@ -14,19 +17,19 @@
         <file>cards/Coin-King.JPG</file>
         <file>cards/Coin-Queen.JPG</file>
         <file>cards/Coin-Soldier.JPG</file>
-        <file>cards/Dimond-2.JPG</file>
-        <file>cards/Dimond-3.JPG</file>
-        <file>cards/Dimond-4.JPG</file>
-        <file>cards/Dimond-5.JPG</file>
-        <file>cards/Dimond-6.JPG</file>
-        <file>cards/Dimond-7.JPG</file>
-        <file>cards/Dimond-8.JPG</file>
-        <file>cards/Dimond-9.JPG</file>
-        <file>cards/Dimond-10.JPG</file>
-        <file>cards/Dimond-Bitcoin.JPG</file>
-        <file>cards/Dimond-King.JPG</file>
-        <file>cards/Dimond-Queen.JPG</file>
-        <file>cards/Dimond-Soldier.JPG</file>
+        <file>cards/Diamond-2.JPG</file>
+        <file>cards/Diamond-3.JPG</file>
+        <file>cards/Diamond-4.JPG</file>
+        <file>cards/Diamond-5.JPG</file>
+        <file>cards/Diamond-6.JPG</file>
+        <file>cards/Diamond-7.JPG</file>
+        <file>cards/Diamond-8.JPG</file>
+        <file>cards/Diamond-9.JPG</file>
+        <file>cards/Diamond-10.JPG</file>
+        <file>cards/Diamond-Bitcoin.JPG</file>
+        <file>cards/Diamond-King.JPG</file>
+        <file>cards/Diamond-Queen.JPG</file>
+        <file>cards/Diamond-Soldier.JPG</file>
         <file>cards/Dollar-2.JPG</file>
         <file>cards/Dollar-3.JPG</file>
         <file>cards/Dollar-4.JPG</file>
@@ -53,8 +56,6 @@
         <file>cards/Gold-King.JPG</file>
         <file>cards/Gold-Queen.JPG</file>
         <file>cards/Gold-Soldier.JPG</file>
-    </qresource>
-    <qresource prefix="/gamepage">
-        <file>table/Game-Ground-Photo.JPG</file>
+        <file>cards/selected_card.JPG</file>
     </qresource>
 </RCC>

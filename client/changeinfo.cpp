@@ -19,8 +19,10 @@ ChangeInfo::ChangeInfo(SocketHandler* socketHandler, const QString &username, QW
             this, &ChangeInfo::onCancelClicked);
 
     if (m_socketHandler) {
+        disconnect(m_socketHandler, &SocketHandler::messageReceived,nullptr, nullptr);
         connect(m_socketHandler, &SocketHandler::messageReceived,
                 this, &ChangeInfo::onMessageReceived);
+        disconnect(m_socketHandler, &SocketHandler::errorOccurred,nullptr, nullptr);
         connect(m_socketHandler, &SocketHandler::errorOccurred,
                 this, &ChangeInfo::onErrorOccurred);
 

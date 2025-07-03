@@ -26,7 +26,7 @@ signals:
     void infoChanged();
     void changeCancelled();
 
-private slots:
+public slots:
     void onSaveClicked();
     void onCancelClicked();
     void onMessageReceived(const QString& msg);

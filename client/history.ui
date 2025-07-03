@@ -6,39 +6,47 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>734</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(85, 170, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="closeButton">
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>450</y>
+      <y>540</y>
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 127);</string>
     </property>
     <property name="text">
      <string>close</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="historyTable">
+    <property name="geometry">
+     <rect>
+      <x>35</x>
+      <y>21</y>
+      <width>661</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 170, 127);</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
