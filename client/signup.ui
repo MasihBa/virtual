@@ -6,19 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>417</width>
+    <height>400</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>400</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 170, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>250</y>
+      <x>40</x>
+      <y>130</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -26,6 +41,9 @@
     <layout class="QFormLayout" name="formLayout_18">
      <item row="0" column="0">
       <widget class="QLabel" name="emailLabel_4">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>email       </string>
        </property>
@@ -33,6 +51,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="emailLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="placeholderText">
         <string>email must contain @gmail.com</string>
        </property>
@@ -43,8 +64,8 @@
    <widget class="QWidget" name="layoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>130</y>
+      <x>40</x>
+      <y>10</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -52,6 +73,9 @@
     <layout class="QFormLayout" name="formLayout_17">
      <item row="0" column="0">
       <widget class="QLabel" name="firstnameLabel_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>first name</string>
        </property>
@@ -59,6 +83,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="firstnameLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="placeholderText">
         <string>firstname must contain a_z</string>
        </property>
@@ -69,8 +96,8 @@
    <widget class="QWidget" name="layoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>160</y>
+      <x>40</x>
+      <y>40</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -78,6 +105,9 @@
     <layout class="QFormLayout" name="formLayout_14">
      <item row="0" column="0">
       <widget class="QLabel" name="lastnameLabel_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>last name</string>
        </property>
@@ -85,6 +115,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="lastnameLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="placeholderText">
         <string>lastname must contain a_z</string>
        </property>
@@ -95,8 +128,8 @@
    <widget class="QWidget" name="layoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>280</y>
+      <x>40</x>
+      <y>160</y>
       <width>331</width>
       <height>30</height>
      </rect>
@@ -104,6 +137,9 @@
     <layout class="QFormLayout" name="formLayout_15">
      <item row="0" column="0">
       <widget class="QLabel" name="emailLabel_3">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>phone number</string>
        </property>
@@ -111,6 +147,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="phonenumberLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="placeholderText">
         <string>example: 989131234567</string>
        </property>
@@ -121,8 +160,8 @@
    <widget class="QWidget" name="layoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>220</y>
+      <x>40</x>
+      <y>100</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -130,6 +169,9 @@
     <layout class="QFormLayout" name="formLayout_13">
      <item row="0" column="1">
       <widget class="QLineEdit" name="passwordLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="echoMode">
         <enum>QLineEdit::EchoMode::Password</enum>
        </property>
@@ -140,6 +182,9 @@
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="passwordLabel_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>password</string>
        </property>
@@ -150,11 +195,14 @@
    <widget class="QPushButton" name="signupPushButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>400</y>
+      <x>290</x>
+      <y>280</y>
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 85, 255);</string>
     </property>
     <property name="text">
      <string>signup</string>
@@ -163,8 +211,8 @@
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>190</y>
+      <x>40</x>
+      <y>70</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -172,6 +220,9 @@
     <layout class="QFormLayout" name="formLayout_16">
      <item row="0" column="0">
       <widget class="QLabel" name="usernameLabel_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 85, 127);</string>
+       </property>
        <property name="text">
         <string>username</string>
        </property>
@@ -179,6 +230,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="usernameLineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="placeholderText">
         <string>username must contain a_z or 0_9</string>
        </property>
@@ -189,8 +243,8 @@
    <widget class="QLabel" name="labelErrorMessage">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>420</y>
+      <x>30</x>
+      <y>220</y>
       <width>161</width>
       <height>91</height>
      </rect>
@@ -200,17 +254,6 @@
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

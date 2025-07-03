@@ -71,7 +71,7 @@ public:
 signals:
     void signupCompleted();
 
-private slots:
+public slots:
     void onSignupClicked();
     void onConnected();
     void onMessageReceived(const QString& msg);

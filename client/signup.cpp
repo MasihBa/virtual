@@ -132,17 +132,15 @@ SignUp::SignUp(SocketHandler* socketHandler, QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->signupPushButton, &QPushButton::clicked,
-            this, &SignUp::onSignupClicked);
-
-    connect(m_socketHandler, &SocketHandler::connected,
-            this, &SignUp::onConnected);
-    connect(m_socketHandler, &SocketHandler::messageReceived,
-            this, &SignUp::onMessageReceived);
-    connect(m_socketHandler, &SocketHandler::errorOccurred,
-            this, &SignUp::onErrorOccurred);
-    connect(m_socketHandler, &SocketHandler::disconnected,
-            this, &SignUp::onDisconnected);
+    connect(ui->signupPushButton, &QPushButton::clicked,this, &SignUp::onSignupClicked);
+    disconnect(m_socketHandler, &SocketHandler::connected, nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::connected,this, &SignUp::onConnected);
+    disconnect(m_socketHandler, &SocketHandler::messageReceived, nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::messageReceived,this, &SignUp::onMessageReceived);
+    disconnect(m_socketHandler, &SocketHandler::errorOccurred, nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::errorOccurred,this, &SignUp::onErrorOccurred);
+    disconnect(m_socketHandler, &SocketHandler::disconnected, nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::disconnected,this, &SignUp::onDisconnected);
 }
 
 SignUp::~SignUp()
@@ -202,7 +200,7 @@ void SignUp::onSignupClicked()
         return;
     }
 
-    pendingSignupMsg = QString("1;%1;%2;%3;%4;%5;%6\n").arg(firstName). arg(lastName). arg(phoneNumber). arg(email). arg(username). arg(password);
+    pendingSignupMsg = QString("1;%1;%2;%3;%4;%5;%6").arg(firstName). arg(lastName). arg(phoneNumber). arg(email). arg(username). arg(password);
     m_socketHandler->sendMessage(pendingSignupMsg);
 }
 
