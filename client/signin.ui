@@ -6,19 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>501</width>
+    <height>232</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>200</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(170, 170, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>210</y>
+      <x>20</x>
+      <y>10</y>
       <width>301</width>
       <height>31</height>
      </rect>
@@ -26,6 +41,9 @@
     <layout class="QFormLayout" name="formLayout_4">
      <item row="0" column="0">
       <widget class="QLabel" name="usernamelabel_signInPage">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 85, 127);</string>
+       </property>
        <property name="text">
         <string>username</string>
        </property>
@@ -33,6 +51,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="usernameInSignInPagelineEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 170, 255);</string>
+       </property>
        <property name="placeholderText">
         <string>enter your username</string>
        </property>
@@ -43,8 +64,8 @@
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>240</y>
+      <x>20</x>
+      <y>40</y>
       <width>301</width>
       <height>31</height>
      </rect>
@@ -52,6 +73,9 @@
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
       <widget class="QLabel" name="passwordlabel_signInPage">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 85, 127);</string>
+       </property>
        <property name="text">
         <string>password</string>
        </property>
@@ -59,6 +83,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="passInSignInPagelineEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 170, 255);</string>
+       </property>
        <property name="echoMode">
         <enum>QLineEdit::EchoMode::Password</enum>
        </property>
@@ -72,21 +99,24 @@
    <widget class="QPushButton" name="signInpushButton_signInPage">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>300</y>
+      <x>240</x>
+      <y>100</y>
       <width>83</width>
       <height>29</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 85, 127);</string>
     </property>
     <property name="text">
      <string>sign in</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>340</y>
+      <x>20</x>
+      <y>140</y>
       <width>400</width>
       <height>31</height>
      </rect>
@@ -94,6 +124,9 @@
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
       <widget class="QPushButton" name="passwordrecoverysigninpushButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="text">
         <string>password recovery</string>
        </property>
@@ -101,6 +134,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="passwordRecoverySigninlabel">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);</string>
+       </property>
        <property name="text">
         <string>if you forget your password, clieck here</string>
        </property>
@@ -108,11 +144,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>370</y>
+      <x>20</x>
+      <y>170</y>
       <width>449</width>
       <height>31</height>
      </rect>
@@ -120,6 +156,9 @@
     <layout class="QFormLayout" name="formLayout_2">
      <item row="0" column="0">
       <widget class="QPushButton" name="signupsigninpushButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 127);</string>
+       </property>
        <property name="text">
         <string>           signup         </string>
        </property>
@@ -127,6 +166,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="signupsigninlabel">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);</string>
+       </property>
        <property name="text">
         <string>if you don't have account, clieck here</string>
        </property>
@@ -135,17 +177,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

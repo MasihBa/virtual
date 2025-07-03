@@ -153,10 +153,13 @@ SignIn::SignIn(SocketHandler* socketHandler, QWidget *parent)
             this, &SignIn::onPasswordRecoveryButtonClicked);
 
     if (m_socketHandler) {
+        disconnect(m_socketHandler, &SocketHandler::messageReceived, nullptr, nullptr);
         connect(m_socketHandler, &SocketHandler::messageReceived,
                 this, &SignIn::onMessageReceived);
+        disconnect(m_socketHandler, &SocketHandler::connected, nullptr, nullptr);
         connect(m_socketHandler, &SocketHandler::connected,
                 this, &SignIn::onConnected);
+        disconnect(m_socketHandler, &SocketHandler::errorOccurred, nullptr, nullptr);
         connect(m_socketHandler, &SocketHandler::errorOccurred,
                 this, &SignIn::onErrorOccurred);
     }
@@ -218,7 +221,8 @@ void SignIn::onMessageReceived(const QString &msg) {
         QMessageBox::warning(this, "Failed", "Invalid username or password.");
     }
     else{
-        QMessageBox::warning(this, "SignIn Failed", msg);
+        // QMessageBox::warning(this, "SignIn Failed", msg);
+        QMessageBox::warning(this, "SignIn Failed", "your enter the wrong password or username.");
     }
 }
 

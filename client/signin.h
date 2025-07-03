@@ -65,7 +65,7 @@ public:
     explicit SignIn(SocketHandler* socketHandler, QWidget *parent = nullptr);
     ~SignIn() override;
 
-private slots:
+public slots:
     void onSignInClicked();
     void onMessageReceived(const QString& msg);
     void onConnected();
