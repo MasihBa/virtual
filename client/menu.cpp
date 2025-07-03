@@ -142,16 +142,36 @@ Menu::~Menu()
     delete ui;
 }
 
+// void Menu::handleStartGame()
+// {
+//     qDebug() << "Starting game for user:" << m_username;
+//     waitingPage = new Waiting(m_socketHandler, m_username, nullptr);
+//     connect(waitingPage, &Waiting::gameStarted,
+//             this, &Menu::onGameStarted);
+//     connect(waitingPage, &Waiting::waitingCancelled,
+//             this, &Menu::onWaitingCancelled);
+//     this->hide();
+//     waitingPage->show();
+// }
+
 void Menu::handleStartGame()
 {
     qDebug() << "Starting game for user:" << m_username;
+
+    GameUI* gameUI = new GameUI();
+    GameUIController* gameController = new GameUIController(gameUI, m_socketHandler, m_username);
+
     waitingPage = new Waiting(m_socketHandler, m_username, nullptr);
-    connect(waitingPage, &Waiting::gameStarted,
-            this, &Menu::onGameStarted);
-    connect(waitingPage, &Waiting::waitingCancelled,
-            this, &Menu::onWaitingCancelled);
+    waitingPage->setGameComponents(gameUI, gameController);
+    connect(waitingPage, &Waiting::gameStarted, this, &Menu::onGameStarted);
+    connect(waitingPage, &Waiting::waitingCancelled, this, &Menu::onWaitingCancelled);
+    connect(gameController, &GameUIController::returnToMenu, this, [this]() {
+        this->show();
+    });
     this->hide();
-    waitingPage->show();
+    disconnect(m_socketHandler, &SocketHandler::messageReceived, nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::messageReceived, waitingPage, &Waiting::onMessageReceived);
+    waitingPage->show();//////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 void Menu::onGameStarted(const QString &gameData)
@@ -219,7 +239,12 @@ void Menu::handleChangeInfo()
         connect(changeInfoPage, &ChangeInfo::changeCancelled,
                 this, &Menu::onInfoCancelled);
     }
-
+    disconnect(m_socketHandler, &SocketHandler::messageReceived,nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::messageReceived,
+            changeInfoPage, &ChangeInfo::onMessageReceived);
+    disconnect(m_socketHandler, &SocketHandler::errorOccurred,nullptr, nullptr);
+    connect(m_socketHandler, &SocketHandler::errorOccurred,
+            changeInfoPage, &ChangeInfo::onErrorOccurred);
     changeInfoPage->show();
     changeInfoPage->raise();
     changeInfoPage->activateWindow();
@@ -241,4 +266,9 @@ void Menu::onInfoChanged()
 void Menu::onInfoCancelled()
 {
     qDebug() << "Change info cancelled by user";
+}
+
+void Menu::onStartGameClicked()
+{
+    emit gameStartRequested();
 }

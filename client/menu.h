@@ -63,7 +63,11 @@ public:
 
 signals:
     void logOutRequested();
-private slots:
+    void gameStartRequested();
+    // void onStartGameClicked();
+
+
+public slots:
     void handleStartGame();
     void handleHistory();
     void handleChangeInfo();
@@ -74,7 +78,7 @@ private slots:
     void onHistoryClosed();
     void onGameStarted(const QString &gameData);
     void onWaitingCancelled();
-
+    void onStartGameClicked();
 
 private:
     Ui::Menu *ui;
