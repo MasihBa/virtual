@@ -216,36 +216,71 @@ void ChangeInfo::onCancelClicked()
 //     }
 // }
 
+// void ChangeInfo::onMessageReceived(const QString& msg)
+// {
+//     qDebug() << "Server reply changeInfo:" << msg;
+
+//     if (msg.contains(";")) {
+//         QStringList parts = msg.split(";");
+
+//         if (parts.size() >= 6) {
+//             firstName = parts[0];
+//             lastName = parts[1];
+//             email = parts[2];
+//             phoneNumber = parts[3];
+//             // password = part[4]; // if the user do not enter nothing the program do not change the password
+//             password = parts[5];
+
+//             qDebug() << "User info received - FirstName:" << firstName
+//                      << "LastName:" << lastName << "Email:" << email;
+
+//             loadUserInfoToUI();
+//             return;
+//         }
+//     }
+
+//     QString trimmedMsg = msg.trimmed();
+//     if (trimmedMsg == "1") {
+//         QMessageBox::information(this, "Success", "Information updated successfully!");
+//         emit infoChanged();
+//         this->close();
+//     }
+//     else if (trimmedMsg == "0") {
+//         QMessageBox::warning(this, "Failed", "Update failed. Please try again.");
+//     }
+//     // else {
+//     //     qDebug() << "Unknown server response:" << msg;
+//     //     QMessageBox::warning(this, "Error", "Unexpected server response: " + msg);
+//     // }
+// }
+
+
 void ChangeInfo::onMessageReceived(const QString& msg)
 {
     qDebug() << "Server reply changeInfo:" << msg;
 
-    if (msg.contains(";")) {
-        QStringList parts = msg.split(";");
+    QStringList parts = msg.split(";");
+    if(parts[0].toInt() == 2)
+    {
+        firstName = parts[1];
+        lastName = parts[2];
+        email = parts[3];
+        phoneNumber = parts[4];
+        // password = part[4]; // if the user do not enter nothing the program do not change the password
+        password = parts[5];
 
-        if (parts.size() >= 6) {
-            firstName = parts[0];
-            lastName = parts[1];
-            email = parts[2];
-            phoneNumber = parts[3];
-            // password = part[4]; // if the user do not enter nothing the program do not change the password
-            password = parts[5];
+        qDebug() << "User info received - FirstName:" << firstName
+                 << "LastName:" << lastName << "Email:" << email;
 
-            qDebug() << "User info received - FirstName:" << firstName
-                     << "LastName:" << lastName << "Email:" << email;
-
-            loadUserInfoToUI();
-            return;
-        }
+        loadUserInfoToUI();
+        return;
     }
-
-    QString trimmedMsg = msg.trimmed();
-    if (trimmedMsg == "1") {
+    else if (parts[0] == "1") {
         QMessageBox::information(this, "Success", "Information updated successfully!");
         emit infoChanged();
         this->close();
     }
-    else if (trimmedMsg == "0") {
+    else if (parts[0] == "0") {
         QMessageBox::warning(this, "Failed", "Update failed. Please try again.");
     }
     // else {
@@ -253,7 +288,6 @@ void ChangeInfo::onMessageReceived(const QString& msg)
     //     QMessageBox::warning(this, "Error", "Unexpected server response: " + msg);
     // }
 }
-
 
 // void ChangeInfo::onMessageReceived(const QString& msg)
 // {
