@@ -18,7 +18,7 @@ std::unique_ptr<HandPattern> OrderHand::evaluate(const QVector<Card>& sortedHand
         if (sortedHand[0].getRank() == Card::Rank::Bitcoin &&
             sortedHand[1].getRank() == Card::Rank::King &&
             sortedHand[2].getRank() == Card::Rank::Queen &&
-            sortedHand[3].getRank() == Card::Rank::Soldior &&
+            sortedHand[3].getRank() == Card::Rank::Soldier &&
             sortedHand[4].getRank() == Card::Rank::Rank10) {
             return nullptr;
         }

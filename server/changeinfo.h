@@ -8,7 +8,7 @@ class ChangeInfo : public QObject
     Q_OBJECT
 public:
     explicit ChangeInfo(QObject *parent = nullptr);
-    QString updateInfo(const QString& name,const QString& lastName,const QString& phoneNumber,const QString& email,const QString& username,const QString& password);
+    QString updateInfo(const QString& oldUserName,const QString& name,const QString& lastName,const QString& phoneNumber,const QString& email,const QString& username,const QString& password);
 signals:
 };
 

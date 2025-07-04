@@ -33,6 +33,7 @@ void MyServer::incomingConnection(qintptr socketDescriptor)
     connect(thread,SIGNAL(dataReceived(qintptr,QString)),gameController,SLOT(handleDataReceived(qintptr,QString)));
     connect(thread,&MyThread::connected,gameController,&Game::addNewOnlineUser);
     thread->start();
+    qDebug()<<"thread :"<<thread;
 }
 
 MyServer::~MyServer(){

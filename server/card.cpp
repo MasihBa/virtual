@@ -88,7 +88,7 @@ Card::Rank Card::stringToRank(const QString &str)
     if(str == "8")        return Rank8;
     if(str == "9")        return Rank9;
     if(str == "10")       return Rank10;
-    if(str == "Soldior")  return Soldior;
+    if(str == "Soldier")  return Soldier;
     if(str == "Queen")    return Queen;
     if(str == "King")     return King;
     if(str == "Bitcoin")  return Bitcoin;
@@ -118,7 +118,7 @@ QString Card::rankToString(Card::Rank rank)
     case Rank8:      return "8";
     case Rank9:      return "9";
     case Rank10:     return "10";
-    case Soldior:    return "Soldior";
+    case Soldier:    return "Soldier";
     case Queen:      return "Queen";
     case King:       return "King";
     case Bitcoin:    return "Bitcoin";

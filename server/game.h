@@ -14,19 +14,25 @@ class Game : public QObject
 public:
     explicit Game(QObject *parent = nullptr);
     void addGamer(qintptr id,QString username);
+    void remGamer(QString username);
     int getGamerCount() const {return gamerCount;}
-    void sendToGamer(qintptr _id,const QString& data);
+    void sendToGamer(qintptr _id,const QString data);
     void startGame();
     void shuffle(QVector<Card>& _cards);
     void gameManager();
     void roudOver();
     void makeNewCardStr();
-    void updateCardStr(QString& selectedCard);
+    void updateCardStr(QString selectedCard);
     void gameOver();
     void evaluateAllHands();
     Gamer* determineRoundWinner();
     void sendRoundResults(Gamer* winner);
     bool allGamersHaveCompleteHands() const;
+
+    void gameOverRandom();
+    qintptr getIdByUsername(const QString& username);
+
+    void gameOverStop();
 signals:
     void newGamerAdded();
 
@@ -39,12 +45,15 @@ private:
     int handPart;
     int removedCardsNum;
     int winnerRound[3];
+    int roundOverRecived;
     QString cardStr;
     QVector<Card> cards;
     QVector<Gamer*> gamers;
     QMap<qintptr,MyThread*> _onlineUsers;
     std::unique_ptr<HandEvaluator> m_handEvaluator;
 
+    QMap<QString, int> randomSelectionCount;
+    QMap<QString, int> stopUsageCount;
 public slots:
     void handleDataReceived(qintptr socketDescriptor,QString commandStr);
     void addNewOnlineUser(qintptr id,MyThread* thread);

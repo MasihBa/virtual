@@ -13,6 +13,8 @@ class PassRecovery : public QObject
 public:
     explicit PassRecovery(QObject *parent = nullptr);
     QString check(const QString& username,const QString& phoneNumber);
+    void changePassword(const QString& password, const QString& username,const QString& phoneNumber);
+
 signals:
 };
 

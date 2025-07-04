@@ -24,7 +24,7 @@ public:
         Rank8,
         Rank9,
         Rank10,
-        Soldior,
+        Soldier,
         Queen,
         King,
         Bitcoin

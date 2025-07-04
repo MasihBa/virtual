@@ -47,6 +47,11 @@ void MyThread::readyRead()
     else if(command[0].toInt() == 3)
     {
         QMutexLocker locker(lock);
+        recovery.changePassword(command[1],command[2],command[3]);
+    }
+    else if(command[0].toInt() == -4)
+    {
+        QMutexLocker locker(lock);
         QString data;
         data = recovery.check(command[1],command[2]);
         socket->write(data.toUtf8());
@@ -62,12 +67,16 @@ void MyThread::readyRead()
     {
         QMutexLocker locker(lock);
         QString data;
-        data = update.updateInfo(command[1],command[2],command[3],command[4],command[5],command[6]);
+        data = update.updateInfo(command[1],command[2],command[3],command[4],command[5],command[6],command[7]);
         socket->write(data.toUtf8());
     }
     else if(command[0].toInt() >= 6)
     {
         emit dataReceived(socketDescriptor,commandStr);
+    }
+    else
+    {
+        qDebug()<<"HOSHDAR "<<commandStr;
     }
     socket->waitForBytesWritten(-1);
 }

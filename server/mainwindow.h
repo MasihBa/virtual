@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <QHostInfo>
+#include <QNetworkInterface>
+#include <QString>
+#include <QList>
 #include <QMainWindow>
 #include <myserver.h>
 QT_BEGIN_NAMESPACE
@@ -15,6 +18,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    QString getWifiIPv4Address();
     ~MainWindow();
 
 private slots:
